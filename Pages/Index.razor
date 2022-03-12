@@ -1,0 +1,126 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<h1>@Message</h1>
+
+<div class="row">
+    <div class="col-2 text-right">
+        <b>On Focus: </b>
+    </div>
+    <div class="col-6">
+        <input type="text"
+            placeholder="On Focus"
+            class="blazor-input"
+            @onfocus="OnFocusCutomEvent"
+        />
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-2 text-right">
+        <b>On Paste: </b>
+    </div>
+    <div class="col-6">
+        <input type="text"
+            placeholder="On Paste"
+            class="blazor-input"
+            @onpaste="OnPastEvent"
+        />
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-2 text-right">
+        <b>Mouse Events: </b>
+    </div>
+    <div class="col-6">
+        <button @onclick="OnClickEvent"
+            @ondblclick="OnDoubleClickEvent"
+            @onmousedown="OnMouseDownEvent"
+            @onmouseup="OnMouseUpEvent"
+            @onmouseover="OnMouseOverEvent"
+            @onmousemove="OnMouseMoveEvent"
+            @onmouseout="OnMouseOutEvent">
+            Button
+        </button>
+        <br /><br />
+        <button @onclick="OnMouseEvent"
+            @ondblclick="OnMouseEvent"
+            @onmousedown="OnMouseEvent"
+            @onmouseup="OnMouseEvent"
+            @onmouseover="OnMouseEvent"
+            @onmousemove="OnMouseEvent"
+            @onmouseout="OnMouseEvent">
+            Button 2
+        </button>
+        <br /><br />
+        <button @onclick="@(e => ChangeMessageControl(e,100))">Lambda Expression</button>
+    </div>
+</div>
+
+
+@code {
+    public string Message { get; set; }
+
+    protected void OnFocusCutomEvent()
+    {
+        this.Message = "Focus no campo de texto";
+    }
+
+    protected void OnPastEvent()
+    {
+        Message = "On Past Event";
+    }
+
+    protected void OnClickEvent()
+    {
+        Message = "On Click Event";
+    }
+
+    protected void OnDoubleClickEvent()
+    {
+        Message = "On Double Click Event";
+    }
+
+    protected void OnMouseDownEvent()
+    {
+        Message = "On Mouse Down Event";
+    }
+
+    protected void OnMouseUpEvent()
+    {
+        Message = "On Mouse Up Event";
+    }
+
+    protected void OnMouseOverEvent()
+    {
+        Message = "On Mouse Over Event";
+    }
+
+    protected void OnMouseMoveEvent()
+    {
+        Message = "On Mouse Move Event";
+    }
+
+    protected void OnMouseOutEvent()
+    {
+        Message = "On Mouse Out Event";
+    }
+
+    protected void OnMouseEvent(MouseEventArgs e)
+    {
+        switch (e.Type)
+        {
+            case "click": this.Message = "On Click Event";
+                break;
+            case "mouseout": this.Message = "On Mouse Out";
+                break;
+        }
+    }
+
+    protected void ChangeMessageControl(MouseEventArgs e, int elementId)
+    {
+        this.Message = $"Element number: {elementId}";
+    }
+}
